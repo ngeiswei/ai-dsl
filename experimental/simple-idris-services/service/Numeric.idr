@@ -42,11 +42,12 @@ Neg WFInt where
 
 
 -- n-parity, i.e. proof that an integer a is evenly divisible by n (or not).
+public export
 data Parity : (a : WFInt) -> (n : WFInt) -> Type where
      -- a has even n-parity if there exists an integer multiple x s.t. x*n = a.
      Even : (x : WFInt ** (x * n) = a) -> Parity a n
 
--- TODO: This passes typechecking when it really should not.
+public export
 data OddParity : (a : WFInt) -> (n : WFInt) -> Type where
      -- a has odd n-parity if there exists
-     Odd : (Parity b n) -> (OddParity (a - (b * n)) n) ->  OddParity a n
+     Odd : (b :WFInt ** b /= n) -> (Parity (a + b) n) ->  OddParity a n

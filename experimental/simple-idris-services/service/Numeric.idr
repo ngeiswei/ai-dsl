@@ -11,6 +11,13 @@ data WFInt : Type where
      Nat : (n : Nat) -> WFInt
      Neg : (n : Nat) -> WFInt --Note: In the negative case, n=Z represents -1.
 
+-- Magnitude of an integer
+public export
+mag : WFInt -> Nat
+mag (Nat n) = n
+mag (Neg n) = (S n)
+
+
 -- Implement casting back and forth from normal Integer type
 public export
 Cast WFInt Integer where
@@ -50,4 +57,4 @@ data Parity : (a : WFInt) -> (n : WFInt) -> Type where
 public export
 data OddParity : (a : WFInt) -> (n : WFInt) -> Type where
      -- a has odd n-parity if there exists
-     Odd : (b :WFInt ** b /= n) -> (Parity (a + b) n) ->  OddParity a n
+     Odd : (b : WFInt ** LT = compare (mag b) (mag n)) -> (Parity (a + b) n) ->  OddParity a n

@@ -24,3 +24,19 @@ Cast Integer WFInt where
            EQ => Nat (fromInteger n)
            GT => Nat (fromInteger n)
            LT => Neg (fromInteger $ negate $ n + 1)
+
+
+-- For arithmetic operations, cast to Integer and then cast back
+public export
+Num WFInt where
+   (+) a b = cast $ (cast a) + (cast b)
+   (*) a b = cast $ (cast a) * (cast b)
+   fromInteger a = cast a
+
+
+public export
+Neg WFInt where
+    negate a = cast $ negate $ (the Integer $ cast a)
+    (-) a b = cast $ (the Integer $ cast a) - (the Integer $ cast b)
+
+

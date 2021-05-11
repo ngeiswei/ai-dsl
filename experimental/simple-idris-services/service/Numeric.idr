@@ -58,3 +58,23 @@ public export
 data OddParity : (a : WFInt) -> (n : WFInt) -> Type where
      -- a has odd n-parity if there exists
      Odd : (b : WFInt ** LT = compare (mag b) (mag n)) -> (Parity (a + b) n) ->  OddParity a n
+
+-- Helpful type alias for even integers
+public export
+EvenNumber : Type
+EvenNumber = (n : WFInt ** Parity n 2)
+
+-- Implement casting from even number to WFInt
+public export
+Cast (n : WFInt ** Parity n 2) WFInt where
+     cast e = 42
+
+-- Implement casting from WFInt to even number
+public export
+Cast WFInt (n : WFInt ** Parity n 2) where
+     cast e = Even 42
+
+-- Implement identity casting
+public export
+Cast a a where
+     cast e = e

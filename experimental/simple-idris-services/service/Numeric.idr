@@ -67,12 +67,12 @@ EvenNumber = (n : WFInt ** Parity n 2)
 -- Implement casting from even number to WFInt
 public export
 Cast (n : WFInt ** Parity n 2) WFInt where
-     cast e = 42
+     cast = fst
 
--- Implement casting from WFInt to even number
-public export
-Cast WFInt (n : WFInt ** Parity n 2) where
-     cast e = Even 42
+-- -- Implement casting from WFInt to even number
+-- public export
+-- Cast WFInt (n : WFInt ** Parity n 2) where
+--      cast e = Even (21 ** (21 * 2) = 42)
 
 -- Implement identity casting
 public export

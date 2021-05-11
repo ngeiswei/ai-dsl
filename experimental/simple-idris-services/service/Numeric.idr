@@ -69,12 +69,21 @@ public export
 Cast (n : WFInt ** Parity n 2) WFInt where
      cast = fst
 
--- -- Implement casting from WFInt to even number
--- public export
--- Cast WFInt (n : WFInt ** Parity n 2) where
---      cast e = Even (21 ** (21 * 2) = 42)
+to_even : WFInt -> WFInt
+to_even x = case (mod (the Integer (cast x)) 2) of
+            0 => x
+            _ => x - 1
+
+wfdiv : WFInt -> WFInt -> WFInt
+wfdiv x y = (the WFInt (cast (div (the Integer (cast x)) (the Integer (cast y)))))
+
+-- Implement casting from WFInt to even number
+public export
+Cast WFInt (a : WFInt ** Parity a 2) where
+     -- cast e = ((to_even e) ** (Even ((wfdiv e 2) ** ((wfdiv e 2) * 2) = to_even e)))
+     cast e = ((to_even e) ** (Even ((wfdiv e 2) ** ?pr)))
 
 -- Implement identity casting
 public export
 Cast a a where
-     cast e = e
+     cast = id

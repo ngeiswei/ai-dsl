@@ -8,7 +8,7 @@ import Numeric
 -- Realized twicer
 public export
 -- Guaranteed to produce a value divisible by 2
-twicer : (b : WFInt) -> (a : WFInt ** Parity a 2)
+twicer : WFInt -> EvenNumber
 twicer b = ((2 * b) ** (Even (b ** ?pr)))
 
 public export

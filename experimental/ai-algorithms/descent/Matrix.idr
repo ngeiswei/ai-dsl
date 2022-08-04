@@ -22,6 +22,22 @@ public export
 ColVect : (m : Nat) -> (a : Type) -> Type
 ColVect m a = Matrix m 1 a
 
+-----------------------------------
+-- Tensor data type definition   --
+-----------------------------------
+
+||| Helper function to describe a Tensor's type according to
+||| a Vector of dimensions.
+public export
+tensShape : Vect (S d) Nat -> Type -> Type
+tensShape (x1::x2::xs) t = Vect x1 (tensShape (x2::xs) t)
+tensShape [x] t = Vect x t
+
+public export
+record Tensor {k : Nat} (dims : Vect (S k) Nat) (a : Type) where
+       constructor MkTensor
+       vects : tensShape dims a
+
 ------------------
 -- Constructors --
 ------------------
